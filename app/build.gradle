@@ -1,0 +1,54 @@
+apply plugin: 'com.android.application'
+apply plugin: 'realm-android'
+apply plugin: 'com.fernandocejas.frodo'
+
+android {
+    compileSdkVersion 26
+    defaultConfig {
+        applicationId "com.nenton.testresult"
+        minSdkVersion 19
+        targetSdkVersion 26
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        vectorDrawables.useSupportLibrary = true
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        targetCompatibility 1.8
+        sourceCompatibility 1.8
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation 'com.android.support:design:26.1.0'
+    implementation 'com.android.support:cardview-v7:26.1.0'
+    implementation 'com.android.support:support-v4:26.1.0'
+    implementation 'com.squareup.flow:flow:1.0.0-alpha3'
+    implementation 'com.squareup.mortar:mortar:0.20'
+    implementation 'com.jakewharton:butterknife:8.8.1'
+    implementation 'com.google.dagger:dagger:2.13'
+    implementation 'io.reactivex:rxjava:1.3.4'
+    implementation 'com.squareup.retrofit2:retrofit:2.3.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
+    implementation 'com.squareup.retrofit2:adapter-rxjava:2.3.0'
+    implementation 'com.squareup.okhttp3:okhttp:3.9.1'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.9.1'
+    implementation 'io.reactivex:rxandroid:1.2.1'
+    implementation 'com.uphyca:stetho_realm:2.0.0'
+    implementation 'com.facebook.stetho:stetho:1.5.0'
+
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.1'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+
+    annotationProcessor  'com.jakewharton:butterknife-compiler:8.8.1'
+    annotationProcessor  'com.google.dagger:dagger-compiler:2.13'
+}
