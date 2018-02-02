@@ -3,7 +3,6 @@ package com.nenton.testresult.data.managers;
 
 import android.util.Log;
 
-import com.fernandocejas.frodo.annotation.RxLogObservable;
 import com.nenton.testresult.data.network.RestCallTransformer;
 import com.nenton.testresult.data.network.RestService;
 import com.nenton.testresult.data.network.res.Stocks;
@@ -23,7 +22,6 @@ import javax.inject.Inject;
 import retrofit2.Retrofit;
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
 public class DataManager {

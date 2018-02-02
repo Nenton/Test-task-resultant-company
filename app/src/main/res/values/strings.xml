@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">TestResult</string>
+    <string name="app_name">TestWork</string>
     <string name="currency_name">Name:</string>
     <string name="currency_volume">Volume:</string>
     <string name="currency_amount">Amount:</string>

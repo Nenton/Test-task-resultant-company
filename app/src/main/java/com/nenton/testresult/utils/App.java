@@ -14,7 +14,6 @@ import com.nenton.testresult.mortar.ScreenScoper;
 import com.nenton.testresult.ui.activities.DaggerRootActivity_RootComponent;
 import com.nenton.testresult.ui.activities.RootActivity;
 
-import io.realm.Realm;
 import mortar.MortarScope;
 import mortar.bundler.BundleServiceRunner;
 
@@ -33,7 +32,6 @@ public class App extends Application {
 
     @Override
     public Object getSystemService(String name) {
-        // т. к. выполняем инструментальный тест выполняем так иначе не найдет mortarScope
         if (mMortarScope != null) {
             return mMortarScope.hasService(name) ? mMortarScope.getService(name) : super.getSystemService(name);
         } else {
@@ -44,9 +42,6 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        Realm.init(this);
-
-
         sContext = getApplicationContext();
 
         sSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);

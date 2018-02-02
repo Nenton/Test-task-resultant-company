@@ -2,9 +2,6 @@ package com.nenton.testresult.mvp.presenters;
 
 import android.view.MenuItem;
 
-/**
- * Created by serge on 05.01.2017.
- */
 public class MenuItemHolder {
     private final CharSequence itemTitle;
     private final int iconResId;

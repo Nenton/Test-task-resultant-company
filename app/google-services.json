@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "545791316284",
+    "firebase_url": "https://testresult-c49b6.firebaseio.com",
+    "project_id": "testresult-c49b6",
+    "storage_bucket": "testresult-c49b6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:545791316284:android:8e56517e902b8cd4",
+        "android_client_info": {
+          "package_name": "com.nenton.testresult"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "545791316284-nh09oe3pb0ii8p8s40bun041ukokjfue.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBdL-Bw2ZkKxd2e5G-4nDyp9z6id6q3VMY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

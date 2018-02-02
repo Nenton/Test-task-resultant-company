@@ -25,15 +25,9 @@ public abstract class AbstractView<P extends AbstractPresenter> extends FrameLay
 
     protected abstract void initDagger(Context context);
 
-    /**
-     * Действия которые необходимо свершить по окончанию инфлейта вью (тут заглушка переопределить при необходимости)
-     */
     protected void afterInflate() {
     }
 
-    /**
-     * Действия которые необходимо свершить перед дропом вью (тут заглушка переопределить при необходимости)
-     */
     protected void beforeDrop() {
     }
 

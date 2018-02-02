@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
+import com.google.firebase.crash.FirebaseCrash;
 import com.nenton.testresult.BuildConfig;
 import com.nenton.testresult.R;
 import com.nenton.testresult.di.DaggerService;
@@ -116,9 +117,8 @@ public class RootActivity extends AppCompatActivity implements IRootView, IActio
 
     @Override
     public void showError(Throwable e) {
-//        FirebaseCrash.log("ROOT VIEW EXCEPTION");
-//        FirebaseCrash.report(e);
-        // TODO: 02.02.2018 implement me
+        FirebaseCrash.log("ROOT VIEW EXCEPTION");
+        FirebaseCrash.report(e);
         if (BuildConfig.DEBUG) {
             showMessage(e.getMessage());
             e.printStackTrace();
