@@ -47,6 +47,7 @@ public class DataManager {
         if (ourInstance == null) {
             ourInstance = new DataManager();
         }
+
         return ourInstance;
     }
 
