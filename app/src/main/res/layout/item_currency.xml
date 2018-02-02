@@ -11,6 +11,7 @@
         android:orientation="horizontal">
 
         <TextView
+            style="@style/TextItemTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -23,6 +24,7 @@
             tools:width="50dp" />
 
         <TextView
+            style="@style/TextItemTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -35,6 +37,7 @@
             tools:width="50dp" />
 
         <TextView
+            style="@style/TextItemTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"

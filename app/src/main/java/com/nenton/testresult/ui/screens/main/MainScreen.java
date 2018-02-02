@@ -3,7 +3,7 @@ package com.nenton.testresult.ui.screens.main;
 import android.os.Bundle;
 
 import com.nenton.testresult.R;
-import com.nenton.testresult.data.storage.realm.CurrencyRealm;
+import com.nenton.testresult.data.network.res.Stocks;
 import com.nenton.testresult.di.DaggerService;
 import com.nenton.testresult.di.sqopes.DaggerScope;
 import com.nenton.testresult.flow.AbstractScreen;
@@ -80,38 +80,24 @@ public class MainScreen extends AbstractScreen<RootActivity.RootComponent> {
 
         @Override
         public void refreshData() {
-            // TODO: 02.02.2018 implement me
+            getRootView().showLoad();
+            mCompSubs.remove(subscribe);
+            subscribe = mModel.updateInfo().subscribe(new RealmSubscriber());
+            mCompSubs.add(subscribe);
         }
 
         @Override
         protected void onLoad(Bundle savedInstanceState) {
             super.onLoad(savedInstanceState);
-
-            subscribe = mModel.takeInfo().subscribe(new RealmSubscriber());
-
-            mCompSubs.add(mModel.updateInfo().subscribe(new Subscriber<Void>() {
-                @Override
-                public void onCompleted() {
-
-                }
-
-                @Override
-                public void onError(Throwable e) {
-
-                }
-
-                @Override
-                public void onNext(Void aVoid) {
-
-                }
-            }));
+            getRootView().showLoad();
             if (getView() != null){
                 getView().initView();
+                subscribe = mModel.updateInfo().subscribe(new RealmSubscriber());
             }
             mCompSubs.add(subscribe);
         }
 
-        private class RealmSubscriber extends Subscriber<List<CurrencyRealm>> {
+        private class RealmSubscriber extends Subscriber<List<Stocks.Stock>> {
             MainAdapter mAdapter = getView().getAdapter();
 
             @Override
@@ -126,9 +112,11 @@ public class MainScreen extends AbstractScreen<RootActivity.RootComponent> {
             }
 
             @Override
-            public void onNext(List<CurrencyRealm> listCurrencies) {
+            public void onNext(List<Stocks.Stock> listCurrencies) {
                 mAdapter.updateListCurrencies(listCurrencies);
-                getRootView().showMessage("Ok");
+                if (getRootView() != null){
+                    getRootView().hideLoad();
+                }
             }
         }
     }

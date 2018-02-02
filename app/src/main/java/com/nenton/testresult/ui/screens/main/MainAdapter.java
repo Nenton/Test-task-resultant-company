@@ -8,15 +8,20 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.nenton.testresult.R;
-import com.nenton.testresult.data.storage.realm.CurrencyRealm;
+import com.nenton.testresult.data.network.res.Stocks;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
 
-    private List<CurrencyRealm> mCurrencies;
+    private List<Stocks.Stock> mCurrencies;
 
-    public void updateListCurrencies(List<CurrencyRealm> currencies) {
+    public MainAdapter() {
+        mCurrencies = new ArrayList<>();
+    }
+
+    public void updateListCurrencies(List<Stocks.Stock> currencies) {
         mCurrencies = currencies;
         notifyDataSetChanged();
     }
@@ -51,10 +56,10 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
         }
 
         @SuppressLint("DefaultLocale")
-        void bind(CurrencyRealm currencyRealm) {
-            mCurrencyName.setText(currencyRealm.getName());
-            mCurrencyVolume.setText(String.valueOf(currencyRealm.getVolume()));
-            mCurrencyAmount.setText(String.format("%.2f",currencyRealm.getAmount()));
+        void bind(Stocks.Stock currency) {
+            mCurrencyName.setText(currency.getName());
+            mCurrencyVolume.setText(String.valueOf(currency.getVolume()));
+            mCurrencyAmount.setText(String.format("%.2f", currency.getPrice().getAmount()));
         }
     }
 }

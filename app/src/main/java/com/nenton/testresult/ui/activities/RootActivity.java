@@ -52,6 +52,8 @@ public class RootActivity extends AppCompatActivity implements IRootView, IActio
     Toolbar mToolbar;
     @BindView(R.id.root_coordinator)
     CoordinatorLayout mCoordinatorLayout;
+    @BindView(R.id.progress_bar_frame)
+    FrameLayout mFrameProgress;
 
     private ActionBar mActionBar;
     private List<MenuItemHolder> mActionBarMenuItems;
@@ -127,12 +129,14 @@ public class RootActivity extends AppCompatActivity implements IRootView, IActio
 
     @Override
     public void showLoad() {
-
+        mFrameProgress.setVisibility(View.VISIBLE);
+        mFrameContainer.setVisibility(View.INVISIBLE);
     }
 
     @Override
     public void hideLoad() {
-
+        mFrameProgress.setVisibility(View.INVISIBLE);
+        mFrameContainer.setVisibility(View.VISIBLE);
     }
 
     @Override
