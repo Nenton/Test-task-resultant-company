@@ -3,8 +3,11 @@ package com.nenton.testresult.data.managers;
 
 import android.util.Log;
 
+import com.fernandocejas.frodo.annotation.RxLogObservable;
+import com.fernandocejas.frodo.annotation.RxLogSubscriber;
 import com.nenton.testresult.data.network.RestCallTransformer;
 import com.nenton.testresult.data.network.RestService;
+import com.nenton.testresult.data.network.errors.NetworkAvailableError;
 import com.nenton.testresult.data.network.res.Stocks;
 import com.nenton.testresult.di.DaggerService;
 import com.nenton.testresult.di.components.DaggerDataManagerComponent;
@@ -12,6 +15,7 @@ import com.nenton.testresult.di.components.DataManagerComponent;
 import com.nenton.testresult.di.modules.NetworkModule;
 import com.nenton.testresult.utils.App;
 import com.nenton.testresult.utils.AppConfig;
+import com.nenton.testresult.utils.NetworkStatusChecker;
 
 import java.util.Date;
 import java.util.List;
@@ -63,6 +67,7 @@ public class DataManager {
         mRestCallTransformer = new RestCallTransformer<>();
     }
 
+    @RxLogObservable
     public Observable<List<Stocks.Stock>> updateInfoCurrencies() {
         return Observable.interval(0, 15, TimeUnit.SECONDS, Schedulers.io())
                 .flatMap(aLong -> mRestService.getStocksObs()

@@ -1,8 +1,10 @@
 package com.nenton.testresult.ui.screens.main;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import com.nenton.testresult.R;
+import com.nenton.testresult.data.network.errors.NetworkAvailableError;
 import com.nenton.testresult.data.network.res.Stocks;
 import com.nenton.testresult.di.DaggerService;
 import com.nenton.testresult.di.sqopes.DaggerScope;
@@ -14,13 +16,17 @@ import com.nenton.testresult.mvp.presenters.IMainPresenter;
 import com.nenton.testresult.mvp.presenters.MenuItemHolder;
 import com.nenton.testresult.mvp.presenters.RootPresenter;
 import com.nenton.testresult.ui.activities.RootActivity;
+import com.nenton.testresult.utils.NetworkStatusChecker;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import dagger.Provides;
 import mortar.MortarScope;
+import rx.Observable;
 import rx.Subscriber;
 import rx.Subscription;
+import rx.schedulers.Schedulers;
 
 @Screen(R.layout.screen_main)
 public class MainScreen extends AbstractScreen<RootActivity.RootComponent> {
@@ -80,42 +86,60 @@ public class MainScreen extends AbstractScreen<RootActivity.RootComponent> {
 
         @Override
         public void refreshData() {
-            getRootView().showLoad();
-            mCompSubs.remove(subscribe);
-            subscribe = mModel.updateInfo().subscribe(new RealmSubscriber());
+            if (subscribe != null) {
+                mCompSubs.remove(subscribe);
+            }
+            subscribe = mModel.updateInfo().subscribe(new MainSubscriber());
             mCompSubs.add(subscribe);
         }
 
         @Override
         protected void onLoad(Bundle savedInstanceState) {
             super.onLoad(savedInstanceState);
-            getRootView().showLoad();
-            if (getView() != null){
+            if (getRootView() != null && getView() != null) {
                 getView().initView();
-                subscribe = mModel.updateInfo().subscribe(new RealmSubscriber());
+                refreshData();
             }
-            mCompSubs.add(subscribe);
         }
 
-        private class RealmSubscriber extends Subscriber<List<Stocks.Stock>> {
+        public void clickOnRefresh() {
+            refreshData();
+        }
+
+        private class MainSubscriber extends Subscriber<List<Stocks.Stock>> {
             MainAdapter mAdapter = getView().getAdapter();
 
             @Override
             public void onCompleted() {
 
             }
+
             @Override
             public void onError(Throwable e) {
                 if (getRootView() != null) {
                     getRootView().showError(e);
+                    getRootView().hideLoad();
                 }
             }
 
             @Override
             public void onNext(List<Stocks.Stock> listCurrencies) {
                 mAdapter.updateListCurrencies(listCurrencies);
-                if (getRootView() != null){
+                if (getRootView() != null) {
                     getRootView().hideLoad();
+                    getView().hideRefreshButton();
+                }
+            }
+
+            @Override
+            public void onStart() {
+                super.onStart();
+                if (NetworkStatusChecker.isNetworkAvailible()){
+                    getRootView().showLoad();
+                    getView().hideRefreshButton();
+                } else {
+                    getView().showRefreshButton();
+                    onError(new NetworkAvailableError());
                 }
             }
         }
